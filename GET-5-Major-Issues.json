@@ -1,0 +1,57 @@
+{
+  "name": "GET 5 Major Issues",
+  "integrationType": "custom-rest-actions",
+  "actionType": "custom",
+  "config": {
+    "request": {
+      "requestUrlTemplate": "https://${input.Domain}.service-now.com/api/now/table/incident?sysparm_query=u_major_incident%3Dtrue&sysparm_limit=5",
+      "requestType": "GET",
+      "headers": {},
+      "requestTemplate": "${input.rawRequest}"
+    },
+    "response": {
+      "translationMap": {},
+      "translationMapDefaults": {},
+      "successTemplate": "${rawResult}"
+    }
+  },
+  "contract": {
+    "input": {
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "Domain": {
+            "type": "string",
+            "description": "The Service Now instance domain e.g. https://*domain*.service-now.com"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "output": {
+      "successSchema": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "array",
+            "items": {
+              "title": "Item 1",
+              "type": "object",
+              "properties": {
+                "description": {
+                  "type": "string"
+                },
+                "sys_id": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": true
+            }
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "secure": false
+}
